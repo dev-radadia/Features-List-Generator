@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internship Project</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+  <script type="text/javascript">
+    var pjname = '{{ data.pjname }}'
+    var filename = '{{ data.filename }}'
+  </script>
+</head>
+
+<body>
+
+<header>
+  <h1> Features List Generator </h1>
+</header>
+
+<div class="container1">
+  <div class="row">
+    <div class="col-25">
+      <label> Project Name </label>
+    </div>
+    <div class="col-75">
+      <input type="text" style="cursor: default;" id="pjname_filled" readonly>
+    </div>
+  </div>
+</div>
+
+<div class="container2">
+  <div>
+    <h2>Features List</h2>
+    <div class="table">
+    {{data.table.to_html(classes="table table-striped") | safe}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-50">
+      <button style="float:left;" id="downloadbtn" onclick="download()"> DOWNLOAD </button>
+    </div>
+    <div class="col-50">
+      <button style="float:right;" id="tryagainbtn" onclick="navigate()"> TRY AGAIN </button>
+    </div>
+  </div>
+</div>
+
+<script src="../static/js_files/generate.js"></script>
+
+</body>
+</html>

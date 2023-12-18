@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internship Project</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/template.css') }}">
+</head>
+
+<body>
+
+<header>
+  <h1> Features List Generator </h1>
+</header>
+
+<div class="container1">
+  <div class="row">
+    <div class="col-25">
+      <label> Project Name </label>
+    </div>
+    <div class="col-75">
+      <input type="text" autofocus="autofocus" id="pjname" placeholder="Enter the project name">
+    </div>
+  </div>
+  <div class="row">
+    <button style="float:right;" id="genbtn" onclick="navigate()"> GENERATE </button>
+  </div>
+</div>
+
+<script src="../static/js_files/home.js"></script>
+
+</body>
+</html>
