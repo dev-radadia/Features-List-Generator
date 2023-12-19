@@ -26,6 +26,9 @@ def data_exists(collection, projectName):
     # Remove all characters except letters and numbers from project name
     projectName = re.sub(r'[\W_]+', '', projectName)
 
+    # Convert the string to lowercase
+    projectName = projectName.lower()
+
     if collection.count_documents({"ProjectName": projectName}, limit = 1):
         return True
     else:
@@ -35,6 +38,9 @@ def data_exists(collection, projectName):
 def load_data(collection, projectName, df):
     # Remove all characters except letters and numbers from project name
     projectName = re.sub(r'[\W_]+', '', projectName)
+
+    # Convert the string to lowercase
+    projectName = projectName.lower()
 
     # Reset indexes of the Pandas Dataframe
     df = df.reset_index()
@@ -46,6 +52,9 @@ def load_data(collection, projectName, df):
 def fetch_data(collection, projectName):
     # Remove all characters except letters and numbers from project name
     projectName = re.sub(r'[\W_]+', '', projectName)
+
+    # Convert the string to lowercase
+    projectName = projectName.lower()
 
     # Fetch data from the database
     data_from_db = collection.find_one({"ProjectName": projectName})
