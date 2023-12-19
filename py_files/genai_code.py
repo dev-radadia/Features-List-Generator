@@ -109,6 +109,8 @@ def create_dataframe(features):
 
   # Create Pandas DataFrame
   df = pd.DataFrame(modules, columns = columns)
+
+  # Set the index of the Pandas Dataframe
   df = df.set_index(columns)
 
   return df

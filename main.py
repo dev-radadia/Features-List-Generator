@@ -16,6 +16,20 @@ dataFrame = pd.DataFrame()
 outputFilename = "features_list.xlsx"
 excelFilename = "features_list.xlsx"
 
+# Connect to MongoDB Database
+db = py_files.mongodb_code.get_database()
+
+# If there is a failure connecting to MongoDB Server
+if(isinstance(db, int)):
+    mongodbCollection = -1
+else:
+    # Connect to a Collection in the MongoDB Database
+    try:
+        mongodbCollection = db.dataframes
+    except:
+        mongodbCollection = db["dataframes"]
+    
+
 @app.route('/')
 # 'home' page function
 def home():
@@ -29,13 +43,27 @@ def getdata(pjname):
     # Load the JSON string into a Python string variable
     projectName = json.loads(pjname)
 
+    return('/')
+
 @app.route('/generate')
 # 'generate' page function
 def generate():
-    global projectName, dataFrame, excelFilename
+    global projectName, mongodbCollection, dataFrame, excelFilename
 
-    # Generate Pandas Dataframe for the given project
-    dataFrame = py_files.genai_code.main(projectName = projectName)
+    # If MongoDB connection exists
+    if(not isinstance(mongodbCollection, int)):
+        # Check whether the required data exists in the MongoDB Database
+        if py_files.mongodb_code.data_exists(collection = mongodbCollection, projectName = projectName):
+            dataFrame = py_files.mongodb_code.fetch_data(collection = mongodbCollection, projectName = projectName)
+        else:
+            # Generate Pandas Dataframe for the given project
+            dataFrame = py_files.genai_code.main(projectName = projectName)
+
+            # Load the generated Pandas Dataframe into the MongoDB Database
+            py_files.mongodb_code.load_data(collection = mongodbCollection, projectName = projectName, df = dataFrame)
+    else:
+        # Generate Pandas Dataframe for the given project
+        dataFrame = py_files.genai_code.main(projectName = projectName)
 
     # Check if a valid Pandas Dataframe was generated or not
     if(isinstance(dataFrame, int)):
@@ -56,7 +84,7 @@ def download_excel():
     # Write the DataFrame to Excel
     writer = pd.ExcelWriter(output)
     dataFrame.to_excel(writer, sheet_name = projectName, index = True)
-    writer.save()
+    writer.close()
     output.seek(0)
 
     # Create a Response object with the Excel file data
