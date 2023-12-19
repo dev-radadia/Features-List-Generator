@@ -32,7 +32,7 @@ def generate_features_list(projectName, temperature, candidateCount):
     response = palm.generate_text(prompt = prompt, temperature = temperature, candidate_count = candidateCount).result
     return response
   except:
-    return generate_features_list(projectName, temperature, candidateCount)
+    return generate_features_list(projectName = projectName, temperature = temperature, candidateCount = candidateCount)
 
 # Function for DFS traversal of graph
 def dfs_traversal(node, featuresGraph, visited, featuresEncoding, modules, lst):
