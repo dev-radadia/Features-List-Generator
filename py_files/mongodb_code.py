@@ -1,6 +1,7 @@
 # Import libraries
 from pymongo.mongo_client import MongoClient
 import pandas as pd
+import re
 
 # Function to connect to MongoDB Database
 def get_database():
@@ -22,6 +23,9 @@ def get_database():
 
 # Function to check whether the data already exists or not
 def data_exists(collection, projectName):
+    # Remove all characters except letters and numbers from project name
+    projectName = re.sub(r'[\W_]+', '', projectName)
+
     if collection.count_documents({"ProjectName": projectName}, limit = 1):
         return True
     else:
@@ -29,11 +33,21 @@ def data_exists(collection, projectName):
 
 # Function to load the data into MongoDB Database
 def load_data(collection, projectName, df):
+    # Remove all characters except letters and numbers from project name
+    projectName = re.sub(r'[\W_]+', '', projectName)
+
+    # Reset indexes of the Pandas Dataframe
     df = df.reset_index()
+
+    # Load data into the database
     collection.insert_one({"ProjectName": projectName, "Data": df.to_dict('records')})
 
 # Function to fetch the data from MongoDB Database
 def fetch_data(collection, projectName):
+    # Remove all characters except letters and numbers from project name
+    projectName = re.sub(r'[\W_]+', '', projectName)
+
+    # Fetch data from the database
     data_from_db = collection.find_one({"ProjectName": projectName})
 
     # Convert the fetched data into a Pandas Dataframe

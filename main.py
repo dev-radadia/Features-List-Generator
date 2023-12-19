@@ -19,7 +19,7 @@ excelFilename = "features_list.xlsx"
 # Connect to MongoDB Database
 db = py_files.mongodb_code.get_database()
 
-# If there is a failure connecting to MongoDB Server
+# Check if there was a failure connecting to MongoDB Server
 if(isinstance(db, int)):
     mongodbCollection = -1
 else:
@@ -50,7 +50,7 @@ def getdata(pjname):
 def generate():
     global projectName, mongodbCollection, dataFrame, excelFilename
 
-    # If MongoDB connection exists
+    # Check whether the MongoDB connection exists
     if(not isinstance(mongodbCollection, int)):
         # Check whether the required data exists in the MongoDB Database
         if py_files.mongodb_code.data_exists(collection = mongodbCollection, projectName = projectName):
