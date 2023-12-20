@@ -8,7 +8,7 @@ function navigate() {
 
 // Function to download the excel sheet
 function download() {
-    fetch('/download')
+    fetch('/download?value=' + pjname)
     .then(response => response.blob())
     .then(blob => {
         const link = document.createElement("a");

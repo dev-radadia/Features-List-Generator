@@ -10,8 +10,8 @@ function navigate() {
     alert("Please enter a valid project name");
   }
   else {
-    sendData(input);
-    window.location = '/generate?value=' + input.replace(/ /g, "_");
+    // sendData(input);
+    window.location = '/generate?value=' + input;
   }
 }
 
@@ -23,8 +23,8 @@ textbox.addEventListener("keypress", function(event) {
   }
 });
 
-function sendData(pjname) {
-  const request = new XMLHttpRequest();
-  request.open('POST', `/getdata/${JSON.stringify(pjname)}`);
-  request.send();
-}
+// function sendData(pjname) {
+//   const request = new XMLHttpRequest();
+//   request.open('POST', `/getdata/${JSON.stringify(pjname)}`);
+//   request.send();
+// }
