@@ -59,8 +59,10 @@ def generate():
             # Generate Pandas Dataframe for the given project
             dataFrame = py_files.genai_code.main(projectName = projectName)
 
-            # Load the generated Pandas Dataframe into the MongoDB Database
-            py_files.mongodb_code.load_data(collection = mongodbCollection, projectName = projectName, df = dataFrame)
+            # Check if a valid Pandas Dataframe was generated or not
+            if(not isinstance(dataFrame, int)):
+                # Load the generated Pandas Dataframe into the MongoDB Database
+                py_files.mongodb_code.load_data(collection = mongodbCollection, projectName = projectName, df = dataFrame)
     else:
         # Generate Pandas Dataframe for the given project
         dataFrame = py_files.genai_code.main(projectName = projectName)
