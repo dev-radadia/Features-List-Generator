@@ -27,7 +27,7 @@ def control_model(temperature, candidateCount):
 
 # Function to generate text using PaLM API
 def generate_features_list(projectName, temperature, candidateCount):
-  prompt = "Generate a list of modules and the corresponding submodules for the following project: " + projectName + ". Use a clear and concise table format with name of a module followed by its corresponding submodules separated with commas in each line. Your response should not contain any extra information."
+  prompt = "Generate a long features list for the following project: " + projectName + ". Use a clear and concise table format with name of a module followed by its corresponding submodules separated with commas in each line. Your response should not contain any extra information."
   try:
     response = palm.generate_text(prompt = prompt, temperature = temperature, candidate_count = candidateCount).result
     return response
