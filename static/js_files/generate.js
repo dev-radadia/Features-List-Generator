@@ -16,5 +16,5 @@ function download() {
         link.download = filename;
         link.click();
     })
-    .catch(error => alert(`Error downloading: ${error}`));
+    .catch(error => alert(`Error downloading!!\n${error}`));
 }
