@@ -1,7 +1,7 @@
 # Features-List-Generator
 
 ## Description:
-The main objective of this project is to build a Features List Generator tool using the power of Generative AI. The program should be capable of generating a list of necessary modules and submodules required in a project (The user will provide the project name).
+The main objective of this project is to build a Features List Generator tool using the power of Generative AI. The program should be capable of generating a list of necessary modules and submodules required in building a project (The user will provide the project name).
 The project will be made from scratch using suitable Python Libraries and APIs. 
 
 ## Features:
