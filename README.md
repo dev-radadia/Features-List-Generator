@@ -1,4 +1,4 @@
-# Features-List-Generator
+# Features-List-Generator (Prototype)
 
 ## Description:
 This is a Features List Generator tool integrated with the power of Generative AI. This tool is capable of generating a list of necessary modules and submodules required to build a project (The user provides the project name).
