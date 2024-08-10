@@ -6,7 +6,7 @@ import re
 # Function to connect to MongoDB Database
 def get_database():
     # Provide the mongodb atlas url to connect python to mongodb using pymongo
-    uri = "mongodb+srv://dev:knowledge@cluster0.sbemqrk.mongodb.net/?retryWrites=true&w=majority"
+    uri = "mongodb+srv://dev:knowledge@cluster0.sbemqrk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
     try:
         # Create a new client and connect to the server
