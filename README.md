@@ -17,7 +17,7 @@ Python 3.10.3
 ### Python Libraries:
 Google, Flask, Pandas
 ### API:
-PaLM API (_Python Module:_ google.generativeai)
+Gemini API (_Python Module:_ google.generativeai)
 ### Web Development:
 HTML, CSS, JavaScript
 ### Database:
