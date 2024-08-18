@@ -96,7 +96,7 @@ def create_dataframe(features):
       submoduleName = submoduleName.strip(" *")
       if submoduleName[0:4] == 'and ':
         submoduleName = submoduleName[4:]
-      else if submoduleName[0:3] == 'or ':
+      elif submoduleName[0:3] == 'or ':
         submoduleName = submoduleName[3:]
       if submoduleName != moduleName:
         featuresEncoding[idx] = submoduleName
