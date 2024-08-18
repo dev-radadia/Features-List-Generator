@@ -1,10 +1,11 @@
 # Import libraries
-import google.generativeai as palm
+import google.generativeai as genai
 import pandas as pd
 from collections import defaultdict
 
 # Configure API
-palm.configure(api_key = 'AIzaSyA3L1x80yxEpJ4_b9Mlw0O1YqeSNEr314c')
+genai.configure(api_key = 'AIzaSyA3L1x80yxEpJ4_b9Mlw0O1YqeSNEr314c')
+model = genai.GenerativeModel(model_name='gemini-pro')
 
 # Initialize global variables
 featuresList = None
@@ -12,7 +13,7 @@ temperature = 0
 candidateCount = 1
 
 # FUNCTIONS
-# Function to initialize the model using PaLM API
+# Function to initialize the model using Gemini API
 def control_model(temperature, candidateCount):
   controlPrompt = '''I'm using you as a modules generator tool in my application.
                     Therefore, your soul task is to generate a list of modules and submodules for an application.
@@ -21,15 +22,15 @@ def control_model(temperature, candidateCount):
                     Your response should not contain any extra information.'''
 
   try:
-    response = palm.chat(prompt = controlPrompt, temperature = temperature, candidate_count = candidateCount).last
+    response = model.generate_content(prompt = controlPrompt, temperature = temperature, candidate_count = candidateCount).last
   except:
     control_model(temperature = temperature, candidateCount = candidateCount)
 
-# Function to generate text using PaLM API
+# Function to generate text using Gemini API
 def generate_features_list(projectName, temperature, candidateCount):
   prompt = "Generate a long features list for the following project: " + projectName + ". Use a clear and concise table format with name of a module followed by its corresponding submodules separated with commas in each line. Your response should not contain any extra information."
   try:
-    response = palm.generate_text(prompt = prompt, temperature = temperature, candidate_count = candidateCount).result
+    response = model.generate_content(prompt = prompt, temperature = temperature, candidate_count = candidateCount).result
     return response
   except:
     return generate_features_list(projectName = projectName, temperature = temperature, candidateCount = candidateCount)
