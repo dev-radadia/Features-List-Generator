@@ -18,7 +18,7 @@ def control_model(temperature, candidateCount):
   controlPrompt = '''I'm using you as a modules generator tool in my application.
                     Therefore, your soul task is to generate a list of modules and submodules for an application.
                     You need to give the output in a fixed format provided, i.e. all the outputs you generate will be having the same format.
-                    Use a clear and concise table format with name of a module followed by its corresponding submodules separated with commas in each line.
+                    Use a clear and concise table format with 2 columns - 'Module' and 'Submodules' separated with '|'. The submodules should be separated with commas.
                     Your response should not contain any extra information.'''
 
   try:
@@ -34,7 +34,7 @@ def control_model(temperature, candidateCount):
 
 # Function to generate text using Gemini API
 def generate_features_list(projectName, temperature, candidateCount):
-  prompt = "Generate a long features list for the following project: " + projectName + ". Use a clear and concise table format with name of a module followed by its corresponding submodules separated with commas in each line. Your response should not contain any extra information."
+  prompt = "Generate a long features list for the following project: " + projectName + ". Use a clear and concise table format with 2 columns - 'Module' and 'Submodules' separated with '|'. The submodules should be separated with commas. Your response should not contain any extra information."
   try:
     response = model.generate_content(
         prompt,
@@ -94,6 +94,10 @@ def create_dataframe(features):
     submoduleNames = submoduleNames.split(",")
     for submoduleName in submoduleNames:
       submoduleName = submoduleName.strip(" *")
+      if submoduleName[0:4] == 'and ':
+        submoduleName = submoduleName[4:]
+      else if submoduleName[0:3] == 'or ':
+        submoduleName = submoduleName[3:]
       if submoduleName != moduleName:
         featuresEncoding[idx] = submoduleName
         featuresGraph[moduleNo].append(idx)
