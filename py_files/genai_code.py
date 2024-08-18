@@ -22,7 +22,13 @@ def control_model(temperature, candidateCount):
                     Your response should not contain any extra information.'''
 
   try:
-    response = model.generate_content(prompt = controlPrompt, temperature = temperature, candidate_count = candidateCount).last
+    response = model.generate_content(
+        controlPrompt,
+        generation_config = {
+            'temperature': temperature,
+            'candidate_count': candidateCount
+        }
+    ).text
   except:
     control_model(temperature = temperature, candidateCount = candidateCount)
 
@@ -30,7 +36,13 @@ def control_model(temperature, candidateCount):
 def generate_features_list(projectName, temperature, candidateCount):
   prompt = "Generate a long features list for the following project: " + projectName + ". Use a clear and concise table format with name of a module followed by its corresponding submodules separated with commas in each line. Your response should not contain any extra information."
   try:
-    response = model.generate_content(prompt = prompt, temperature = temperature, candidate_count = candidateCount).result
+    response = model.generate_content(
+        prompt,
+        generation_config = {
+            'temperature': temperature,
+            'candidate_count': candidateCount
+        }
+    ).text
     return response
   except:
     return generate_features_list(projectName = projectName, temperature = temperature, candidateCount = candidateCount)
